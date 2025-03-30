@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" fill="#6B8EB8">
+  <g>
+    <!-- Globe outline -->
+    <circle cx="40" cy="40" r="25" fill="none" stroke="#6B8EB8" stroke-width="2"/>
+    
+    <!-- Latitude lines -->
+    <path d="M15,40 h50" stroke="#6B8EB8" stroke-width="1.5" fill="none"/>
+    <path d="M17,25 h46" stroke="#6B8EB8" stroke-width="1.5" fill="none"/>
+    <path d="M17,55 h46" stroke="#6B8EB8" stroke-width="1.5" fill="none"/>
+    
+    <!-- Longitude lines -->
+    <path d="M40,15 v50" stroke="#6B8EB8" stroke-width="1.5" fill="none"/>
+    <path d="M25,17 v46" stroke="#6B8EB8" stroke-width="1.5" fill="none"/>
+    <path d="M55,17 v46" stroke="#6B8EB8" stroke-width="1.5" fill="none"/>
+    
+    <!-- Curved longitude lines -->
+    <path d="M20,20 q20,30 40,0" stroke="#6B8EB8" stroke-width="1.5" fill="none"/>
+    <path d="M20,60 q20,-30 40,0" stroke="#6B8EB8" stroke-width="1.5" fill="none"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="75" y="30" font-family="Arial, sans-serif" font-size="12" fill="#6B8EB8">United Nations</text>
+  <text x="75" y="45" font-family="Arial, sans-serif" font-size="12" fill="#6B8EB8">Global Compact</text>
+</svg>
