@@ -1,9 +1,7 @@
 import React from 'react';
 import logo from '../../../assets/images/logo/logo.png';
 import unGlobalCompactLogo from '../../../assets/images/logo/global_footer.png';
-import LinkedinIcon from '../../../assets/images/linkedin_icon.svg?react';
-import InstagramIcon from '../../../assets/images/instagram_icon.svg?react';
-import FacebookIcon from '../../../assets/images/facebook_icon.svg?react';
+import SocialLinks from '../../common/SocialLinks';
 
 interface FooterProps {
   className?: string;
@@ -48,19 +46,12 @@ const Footer: React.FC<FooterProps> = ({ className = '' }) => {
             </div>
 
             {/* Social media icons */}
-            <div className="flex space-x-4 mt-4">
-              <a href="#" className="text-white hover:text-white">
-                <span className="sr-only">LinkedIn</span>
-                <LinkedinIcon className="[&>path]:fill-white w-[1.3125rem] h-[1.3125rem] hover:[&>path]:fill-[#FFC3C3] [&>path]:transition-all [&>path]:duration-200" />
-              </a>
-              <a href="#" className="text-white hover:text-white">
-                <span className="sr-only">Instagram</span>
-                <InstagramIcon className="[&>path]:fill-white w-[1.3125rem] h-[1.3125rem] hover:[&>path]:fill-[#FFC3C3] [&>path]:transition-all [&>path]:duration-200" />
-              </a>
-              <a href="#" className="text-white hover:text-white">
-                <span className="sr-only">Facebook</span>
-                <FacebookIcon className="[&>path]:fill-white w-[1.3125rem] h-[1.3125rem] hover:[&>path]:fill-[#FFC3C3] [&>path]:transition-all [&>path]:duration-200" />
-              </a>
+            <div className="mt-4">
+              <SocialLinks 
+                iconColor="white" 
+                iconSize="w-[1.3125rem] h-[1.3125rem]" 
+                className="flex gap-1 w-fit"
+              />
             </div>
           </div>
 

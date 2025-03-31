@@ -1,10 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import hero_image_1 from '../../assets/images/hero/hero_image_1.png';
-import CTAButton from '../../components/common/Button/CTAButton';
 
-interface HeroProps {}
+interface HeroProps {
+  fullScreen?: boolean;
+  hasOverlay?: boolean;
+  hasScrollIndicator?: boolean;
+  className?: string;
+  ctaButton?: React.ReactNode;
+  image?: string;
+  title?: React.ReactNode;
+  subTitle?: React.ReactNode;
+  imagePosition?: string;
+}
 
-const Hero: React.FC<HeroProps> = () => {
+const Hero: React.FC<HeroProps> = ({
+  fullScreen = false,
+  className = '',
+  ctaButton,
+  image = hero_image_1,
+  title,
+  subTitle,
+  hasOverlay = true,
+  imagePosition = 'center',
+}) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const mouseRef = React.useRef<HTMLDivElement>(null);
   const heroImageRef = React.useRef<HTMLImageElement>(null);
@@ -12,8 +30,6 @@ const Hero: React.FC<HeroProps> = () => {
   useEffect(() => {
     setIsLoaded(true);
   }, []);
-
-
 
   // Handle scroll event, if scrolled past the hero image, hide the mouse
   useEffect(() => {
@@ -47,27 +63,33 @@ const Hero: React.FC<HeroProps> = () => {
   return (
     <>
       <section
-        className="relative w-full h-screen overflow-hidden"
+        className={
+          `relative w-full ${fullScreen ? 'h-screen' : 'h-full'} overflow-hidden ` +
+          className
+        }
         ref={heroImageRef}
       >
-        {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
           <img
-            src={hero_image_1}
+            src={image}
             alt="Luxurious interior design by Casadora"
-            className="object-cover object-center w-full h-full"
+            className={`object-cover object-center w-full h-full`}
             onLoad={() => setIsLoaded(true)}
-          />
-          <div
-            className="absolute max-h-[11.25rem] w-full h-full bottom-0 z-10"
             style={{
-              background:
-                'linear-gradient(0deg, #414042 0%, rgba(117, 115, 119, 0.484943) 70%, rgba(165, 163, 168, 0) 100%)',
+              objectPosition: imagePosition,
             }}
-          ></div>
+          />
+          {hasOverlay && (
+            <div
+              className="absolute max-h-[11.25rem] w-full h-full bottom-0 z-10"
+              style={{
+                background:
+                  'linear-gradient(0deg, #414042 0%, rgba(117, 115, 119, 0.484943) 70%, rgba(165, 163, 168, 0) 100%)',
+              }}
+            ></div>
+          )}
         </div>
 
-        {/* Content Container */}
         <div className="absolute max-h-[11.25rem] bottom-0 z-20 h-full w-full flex flex-col justify-center items-center text-center px-4 md:px-8">
           <div
             className={
@@ -76,19 +98,13 @@ const Hero: React.FC<HeroProps> = () => {
                 : 'translate-y-8 opacity-0'
             }
           >
-            {/* Headline */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-white mb-2 tracking-wider font-[Playfair Display]">
-              CASADORA
+              {title}
             </h1>
 
-            {/* Subheading */}
-            <p className="text-white mb-2">
-              Managing every detail from concept to install, <br /> we offer
-              5-star service for your living environment.
-            </p>
+            <p className="text-white mb-2">{subTitle}</p>
 
-            {/* CTA Buttons */}
-            <CTAButton href="/about">ABOUT US</CTAButton>
+            {ctaButton}
           </div>
         </div>
       </section>

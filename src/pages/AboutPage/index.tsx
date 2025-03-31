@@ -1,4 +1,7 @@
 import React, { useEffect } from 'react';
+import Hero from '../../features/Hero';
+import AboutMainSection from '../../features/About';
+import AboutImage from '../../assets/about/about_1.jpeg';
 
 const AboutPage: React.FC = () => {
   useEffect(() => {
@@ -6,20 +9,20 @@ const AboutPage: React.FC = () => {
   }, []);
 
   return (
-    <div className="container mx-auto py-16 px-4">
-      <h1 className="text-4xl font-bold mb-8">About Us</h1>
-      <div className="prose max-w-none">
-        <p className="text-lg mb-6">
-          Casadora is a leading furniture corporation dedicated to creating beautiful, functional spaces through innovative design and craftsmanship.
-        </p>
-        <p className="mb-6">
-          Our mission is to blend aesthetics with functionality, creating spaces that inspire and enhance the quality of life for our clients.
-        </p>
-        <p className="mb-6">
-          With a team of talented designers and craftsmen, we bring visions to life, transforming spaces into works of art that reflect our clients' unique personalities and needs.
-        </p>
-      </div>
-    </div>
+    <>
+      <Hero
+        className="w-screen aspect-[3.94]"
+        hasOverlay={false}
+        imagePosition="bottom"
+      />
+      <AboutMainSection />
+      <Hero
+        className="w-screen aspect-[4.25]"
+        hasOverlay={false}
+        imagePosition="center"
+        image={AboutImage}
+      />
+    </>
   );
 };
 

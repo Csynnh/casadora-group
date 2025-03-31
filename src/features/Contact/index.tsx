@@ -1,9 +1,7 @@
 import React from 'react';
 import ContactOverlayImage from '../../assets/images/contact_image.png';
 import ContactLogo from '../../assets/images/logo/logo_white.png';
-import LinkedinIcon from '../../assets/images/linkedin_icon.svg?react';
-import InstagramIcon from '../../assets/images/instagram_icon.svg?react';
-import FacebookIcon from '../../assets/images/facebook_icon.svg?react';
+import SocialLinks from '../../components/common/SocialLinks';
 
 export interface ContactProps {
   className?: string;
@@ -48,29 +46,13 @@ const Contact: React.FC<ContactProps> = ({
             <br />
             {email}
           </p>
-          <ul className="flex items-center justify-between gap-4">
-            <li>
-              <a href={linkedinUrl}>
-                <span className="text-white">
-                  <LinkedinIcon className="[&>path]:fill-white w-5 h-5" />
-                </span>
-              </a>
-            </li>
-            <li>
-              <a href={instagramUrl}>
-                <span className="text-white">
-                  <InstagramIcon className="[&>path]:fill-white w-5 h-5" />
-                </span>
-              </a>
-            </li>
-            <li>
-              <a href={facebookUrl}>
-                <span className="text-white">
-                  <FacebookIcon className="[&>path]:fill-white w-5 h-5" />
-                </span>
-              </a>
-            </li>
-          </ul>
+          <SocialLinks
+            linkedinUrl={linkedinUrl}
+            instagramUrl={instagramUrl}
+            facebookUrl={facebookUrl}
+            iconColor="white"
+            iconSize="w-5 h-5"
+          />
         </div>
       </div>
     </section>

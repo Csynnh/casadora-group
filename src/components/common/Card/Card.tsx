@@ -24,7 +24,7 @@ const Card: React.FC<CardProps> = ({ image, text, href, className }) => {
         />
       </div>
       <div
-        className="absolute bottom-0 w-full max-h-[min(25.5%,99px)] h-full left-0 py-2"
+        className="absolute bottom-0 w-full max-h-[min(25.5%,6.1875rem)] h-full left-0 py-2"
         style={{
           background:
             'linear-gradient(360deg, #414042 0%, rgba(69, 68, 70, 0.580866) 53.41%, rgba(165, 163, 168, 0) 100%)',

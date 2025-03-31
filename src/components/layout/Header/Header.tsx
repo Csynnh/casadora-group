@@ -1,21 +1,24 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import logo from '../../../assets/images/logo/logo.png';
-import linkedinIcon from '../../../assets/images/linkedin_icon.svg';
-import instagramIcon from '../../../assets/images/instagram_icon.svg';
-import facebookIcon from '../../../assets/images/facebook_icon.svg';
-import ChevronIcon from '../../../assets/images/chevron_down.svg?react';
 import MenuIcon from '../../../assets/images/menu_icon.svg?react';
 import CloseIcon from '../../../assets/images/close_icon.svg?react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { NavItem } from '../../../types/navigation';
+import { NavItem as NavItemType } from '../../../types/navigation';
+import SocialLinks from '../../common/SocialLinks';
+import NavItem from './NavItem';
 
 interface HeaderProps {
   className?: string;
+  socialLinks?: {
+    linkedinUrl?: string;
+    instagramUrl?: string;
+    facebookUrl?: string;
+  };
 }
 
 // Navigation data
-const navItems: NavItem[] = [
+const navItems: NavItemType[] = [
   {
     label: 'About',
     menuItems: [],
@@ -87,7 +90,14 @@ const navItems: NavItem[] = [
   },
 ];
 
-const Header: React.FC<HeaderProps> = ({ className = '' }) => {
+const Header: React.FC<HeaderProps> = ({
+  className = '',
+  socialLinks = {
+    linkedinUrl: '#',
+    instagramUrl: '#',
+    facebookUrl: '#',
+  },
+}) => {
   const navigation = useNavigate();
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -143,10 +153,31 @@ const Header: React.FC<HeaderProps> = ({ className = '' }) => {
   }, [isMobileMenuOpen]);
 
   const handleClickOnNavItemMobile = useCallback(
-    (item: NavItem) => {
+    async (item: NavItemType) => {
       if (item.menuItems.length <= 0) {
-        const path = '/' + item.label.toLowerCase();
-        navigation(path);
+        const HOMEPAGE = '/';
+        const currentPath = window.location.pathname;
+        const path = item.href?.toLowerCase() || '/';
+        const pathPrefix = path[0];
+
+        if (pathPrefix === '#') {
+          if (currentPath !== HOMEPAGE) {
+            navigation(HOMEPAGE);
+          }
+          await new Promise(resolve => setTimeout(resolve, 300));
+          toggleMobileMenu();
+          const sectionId = path.split('#')[1];
+          const sectionElement = document.getElementById(sectionId);
+          if (sectionElement) {
+            sectionElement.scrollIntoView({
+              behavior: 'smooth',
+              block: 'nearest',
+            });
+          }
+        } else if (pathPrefix === '/') {
+          navigation(path);
+          toggleMobileMenu();
+        }
         toggleMobileMenu();
       } else {
         setActiveDropdown(prevState =>
@@ -158,12 +189,13 @@ const Header: React.FC<HeaderProps> = ({ className = '' }) => {
   );
 
   const handleNavItemClick = useCallback(
-    async (item: NavItem) => {
-      if (item.menuItems.length <= 0) {
+    async (item: NavItemType) => {
+      if (item.menuItems.length <= 0 && item.href) {
         const HOMEPAGE = '/';
         const currentPath = window.location.pathname;
-        const path = item.href?.toLowerCase() || '/';
+        const path = item.href.toLowerCase();
         const pathPrefix = path[0];
+
         if (pathPrefix === '#') {
           if (currentPath !== HOMEPAGE) {
             navigation(HOMEPAGE);
@@ -175,11 +207,10 @@ const Header: React.FC<HeaderProps> = ({ className = '' }) => {
           if (sectionElement) {
             sectionElement.scrollIntoView({
               behavior: 'smooth',
+              block: 'nearest',
             });
           }
-        }
-
-        if (pathPrefix === '/') {
+        } else if (pathPrefix === '/') {
           navigation(path);
         }
       }
@@ -205,41 +236,11 @@ const Header: React.FC<HeaderProps> = ({ className = '' }) => {
         >
           casadora.group
         </a>
-        <ul className="flex items-center justify-between gap-4">
-          <li>
-            <a href="#" aria-label="LinkedIn">
-              <span>
-                <img
-                  src={linkedinIcon}
-                  alt="linkedinIcon"
-                  className="w-[18px] h-[18px]"
-                />
-              </span>
-            </a>
-          </li>
-          <li>
-            <a href="#" aria-label="Instagram">
-              <span>
-                <img
-                  src={instagramIcon}
-                  alt="instagramIcon"
-                  className="w-[18px] h-[18px]"
-                />
-              </span>
-            </a>
-          </li>
-          <li>
-            <a href="#" aria-label="Facebook">
-              <span>
-                <img
-                  src={facebookIcon}
-                  alt="facebookIcon"
-                  className="w-[18px] h-[18px]"
-                />
-              </span>
-            </a>
-          </li>
-        </ul>
+        <SocialLinks
+          linkedinUrl={socialLinks.linkedinUrl}
+          instagramUrl={socialLinks.instagramUrl}
+          facebookUrl={socialLinks.facebookUrl}
+        />
       </div>
       <div className="relative z-40">
         <div className="flex items-center justify-between px-6 sm:px-20 lg:px-0 lg:justify-center py-4 z-40 bg-white relative">
@@ -283,44 +284,24 @@ const Header: React.FC<HeaderProps> = ({ className = '' }) => {
             transform: isMobileMenuOpen
               ? 'translateY(0%)'
               : 'translateY(-180%)',
-            maxHeight: 'calc(100vh - 120px)',
+            maxHeight: 'calc(100vh - 7.5rem)',
             opacity: isMobileMenuOpen ? 1 : 0,
             boxShadow: isMobileMenuOpen
               ? '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
               : 'none',
           }}
         >
-          <ul className="flex flex-col justify-start items-start h-[calc(100vh-120px)]">
+          <ul className="flex flex-col justify-start items-start h-[calc(100vh-7.5rem)]">
             {navItems.map((item, index) => (
-              <li
+              <NavItem
                 key={index + item.label}
-                onClick={() => {
-                  handleClickOnNavItemMobile(item);
-                }}
-                className="nav-item px-6 sm:px-20 text-base font-medium leading-6 text-[#414042] hover:text-[#FFC3C3] transition-all duration-200 py-4 border-b border-[#D6D5D8] w-full"
-              >
-                <div className="flex items-center justify-between gap-1">
-                  {item.label}
-                  {item.menuItems.length > 0 ? (
-                    <ChevronIcon className="ml-2 h-4 w-4 transition-transform duration-300 -rotate-90" />
-                  ) : null}
-                </div>
-                {item.menuItems.length > 0 && activeDropdown === item.label ? (
-                  <ul className="space-y-2 flex flex-col justify-start items-start mt-4">
-                    {item.menuItems.map((subItem, subIndex) => (
-                      <li
-                        key={subIndex}
-                        className="px-6 sm:px-10 text-base font-medium leading-6 text-[#414042] hover:text-[#FFC3C3] transition-all duration-200 flex items-center gap-1 py-2 w-full"
-                        onClick={toggleMobileMenu}
-                      >
-                        <a href={subItem.href}>{subItem.label}</a>
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  ''
-                )}
-              </li>
+                item={item}
+                isActive={activeDropdown === item.label}
+                isMobile={true}
+                onToggle={toggleDropdown}
+                onNavItemClick={handleClickOnNavItemMobile}
+                onMobileMenuClose={toggleMobileMenu}
+              />
             ))}
           </ul>
         </div>
@@ -332,43 +313,13 @@ const Header: React.FC<HeaderProps> = ({ className = '' }) => {
               <div className="flex-1 flex justify-center">
                 <ul className="flex space-x-8">
                   {navItems.map(item => (
-                    <li key={item.label} className="relative group">
-                      <div className="flex items-center">
-                        <button
-                          onClick={() => {
-                            if (item.menuItems.length > 0) {
-                              toggleDropdown(item.label);
-                            } else {
-                              handleNavItemClick(item);
-                            }
-                          }}
-                          className={
-                            'hover:text-[#FFC3C3] font-medium text-sm tracking-wider flex items-center uppercase transition-colors duration-200 nav-item ' +
-                            (activeDropdown === item.label
-                              ? 'text-[#FFC3C3]'
-                              : '')
-                          }
-                          aria-expanded={activeDropdown === item.label}
-                          aria-haspopup={
-                            item.menuItems.length ? 'true' : 'false'
-                          }
-                        >
-                          {item.label}
-                          {item.menuItems.length ? (
-                            <ChevronIcon
-                              className={
-                                'ml-2 h-4 w-4 transition-transform duration-300 ' +
-                                (activeDropdown === item.label
-                                  ? 'rotate-180'
-                                  : '')
-                              }
-                            ></ChevronIcon>
-                          ) : (
-                            ''
-                          )}
-                        </button>
-                      </div>
-                    </li>
+                    <NavItem
+                      key={item.label}
+                      item={item}
+                      isActive={activeDropdown === item.label}
+                      onToggle={toggleDropdown}
+                      onNavItemClick={handleNavItemClick}
+                    />
                   ))}
                 </ul>
               </div>

@@ -21,13 +21,18 @@ body {
   font-size: 1rem;
   scroll-behavior: smooth;
 }
+@media (min-width: 120rem) {
+  :root {
+    font-size: 18px;
+  }
+}
 
-@media (max-width: 768px) {
+@media (max-width: 80rem) {
   :root {
     font-size: 14px;
   }
 }
-@media (max-width: 480px) {
+@media (max-width: 30rem) {
   :root {
     font-size: 12px;
   }
