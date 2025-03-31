@@ -22,7 +22,10 @@ const SocialLinks: React.FC<SocialLinksProps> = ({
   iconSize = 'w-[1.125rem] h-[1.125rem]',
   iconColor = 'default',
 }) => {
-  const colorClass = iconColor === 'white' ? '[&>path]:fill-white hover:[&>path]:fill-[#FFC3C3]' : '';
+  const colorClass =
+    iconColor === 'white'
+      ? '[&>path]:fill-white hover:[&>path]:fill-[#FFC3C3]'
+      : '';
   const transitionClass = '[&>path]:transition-all [&>path]:duration-200';
   const finalIconClass = `${iconSize} ${colorClass} ${transitionClass} ${iconClassName}`;
 

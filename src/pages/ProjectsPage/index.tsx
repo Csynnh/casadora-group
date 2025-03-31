@@ -13,18 +13,26 @@ const ProjectsPage: React.FC = () => {
           <div className="p-6">
             <h2 className="text-2xl font-semibold mb-4">Residential</h2>
             <p className="text-gray-600 mb-4">
-              Our residential projects showcase our commitment to creating beautiful, functional living spaces that reflect our clients' unique personalities and lifestyles.
+              Our residential projects showcase our commitment to creating
+              beautiful, functional living spaces that reflect our clients'
+              unique personalities and lifestyles.
             </p>
-            <a href="#" className="text-[#FFC3C3] hover:underline">View Projects</a>
+            <a href="#" className="text-[#FFC3C3] hover:underline">
+              View Projects
+            </a>
           </div>
         </div>
         <div className="bg-white shadow-md rounded-lg overflow-hidden">
           <div className="p-6">
             <h2 className="text-2xl font-semibold mb-4">Hospitality</h2>
             <p className="text-gray-600 mb-4">
-              Our hospitality projects demonstrate our ability to create inviting, memorable spaces that enhance the guest experience and support operational efficiency.
+              Our hospitality projects demonstrate our ability to create
+              inviting, memorable spaces that enhance the guest experience and
+              support operational efficiency.
             </p>
-            <a href="#" className="text-[#FFC3C3] hover:underline">View Projects</a>
+            <a href="#" className="text-[#FFC3C3] hover:underline">
+              View Projects
+            </a>
           </div>
         </div>
       </div>

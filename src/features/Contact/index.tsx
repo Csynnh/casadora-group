@@ -19,11 +19,20 @@ const Contact: React.FC<ContactProps> = ({
   linkedinUrl = '#',
   instagramUrl = '#',
   facebookUrl = '#',
-  address = <>5th Floor of QA Building, <br/> 186B Nguyen Van Huong, Thao Dien Ward, Thu Duc City, <br/>Ho Chi Minh City, Vietnam.</>,
-  email = 'contact@casadora.group'
+  address = (
+    <>
+      5th Floor of QA Building, <br /> 186B Nguyen Van Huong, Thao Dien Ward,
+      Thu Duc City, <br />
+      Ho Chi Minh City, Vietnam.
+    </>
+  ),
+  email = 'contact@casadora.group',
 }) => {
   return (
-    <section id="casadora-contact" className={`bg-gray-50 relative ${fullScreen ? 'h-screen' : ''} ${className}`}>
+    <section
+      id="casadora-contact"
+      className={`bg-gray-50 relative ${fullScreen ? 'h-screen' : ''} ${className}`}
+    >
       <div className="">
         <img
           src={ContactOverlayImage}

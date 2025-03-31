@@ -50,7 +50,6 @@ const About = () => {
           </div>
         </div>
         <div className="hidden lg:grid grid-cols-1 lg:grid-cols-[1fr_48.55%] gap-[min(4.375rem,_5.4vw)] mb-10">
-
           <div className="aspect-[1.775]">
             <img
               src={AboutImage}

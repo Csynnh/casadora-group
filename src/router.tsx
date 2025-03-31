@@ -10,7 +10,9 @@ const ProjectsPage = lazy(() => import('./pages/ProjectsPage'));
 const ExhibitionPage = lazy(() => import('./pages/ExhibitionPage'));
 
 // Loading fallback
-const LoadingFallback = () => <div className="flex items-center justify-center h-screen">Loading...</div>;
+const LoadingFallback = () => (
+  <div className="flex items-center justify-center h-screen">Loading...</div>
+);
 
 // Define routes
 const router = createBrowserRouter([
@@ -57,7 +59,7 @@ const router = createBrowserRouter([
             <ExhibitionPage />
           </Suspense>
         ),
-      }
+      },
     ],
   },
 ]);
