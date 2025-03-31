@@ -1,9 +1,8 @@
 import React from 'react';
 import logo from '../../../assets/images/logo/logo.png';
 import unGlobalCompactLogo from '../../../assets/images/logo/global_footer.png';
-import LinkedinIcon from '../../../assets/images/linkedin_icon.svg?react';
-import InstagramIcon from '../../../assets/images/instagram_icon.svg?react';
-import FacebookIcon from '../../../assets/images/facebook_icon.svg?react';
+import SocialLinks from '../../common/SocialLinks';
+import { useNavigate } from 'react-router-dom';
 
 interface FooterProps {
   className?: string;
@@ -11,9 +10,29 @@ interface FooterProps {
 
 const Footer: React.FC<FooterProps> = ({ className = '' }) => {
   const currentYear = new Date().getFullYear();
-
+  const navigation = useNavigate();
+  const handleScrollToSection = async (sectionId: string) => {
+    const currentPath = window.location.pathname;
+    const HOMEPAGE = '/';
+    if (currentPath !== HOMEPAGE) {
+      navigation(HOMEPAGE);
+      await new Promise(resolve => setTimeout(resolve, 300));
+    }
+    const sectionElement = document.getElementById(sectionId);
+    if (sectionElement) {
+      const currentScreenWidth = window.innerWidth;
+      const md = currentScreenWidth >= 760;
+      const lg = currentScreenWidth >= 1024;
+      window.scrollTo({
+        top: sectionElement.offsetTop - (lg ? 190 : md ? 130 : 120),
+        behavior: 'smooth',
+      });
+    }
+  };
   return (
-    <footer className={`bg-[#414042] text-white py-9 px-20 ${className}`}>
+    <footer
+      className={`bg-[#414042] text-white py-9 px-6 sm:px-[min(5rem,8.5vw)] ${className}`}
+    >
       <div className="flex flex-col md:flex-row items-start mb-6 space-y-4 md:space-y-0 md:space-x-8">
         <div>
           <img
@@ -32,7 +51,7 @@ const Footer: React.FC<FooterProps> = ({ className = '' }) => {
       </div>
       <div className="flex flex-col md:flex-row justify-between items-start w-full border-b border-b-[#FFC3C3] pb-4">
         {/* Company info and navigation */}
-        <div className="flex justify-between items-end w-full ">
+        <div className="flex md:justify-between md:items-end w-full flex-col md:flex-row">
           {/* Company info */}
           <div className="mb-6 md:mb-0 md:mr-16 text-left max-w-[25rem] 2xl:max-w-auto">
             <h3 className="text-lg font-semibold uppercase mb-4">
@@ -48,52 +67,57 @@ const Footer: React.FC<FooterProps> = ({ className = '' }) => {
             </div>
 
             {/* Social media icons */}
-            <div className="flex space-x-4 mt-4">
-              <a href="#" className="text-white hover:text-white">
-                <span className="sr-only">LinkedIn</span>
-                <LinkedinIcon className="[&>path]:fill-white w-[1.3125rem] h-[1.3125rem] hover:[&>path]:fill-[#FFC3C3] [&>path]:transition-all [&>path]:duration-200" />
-              </a>
-              <a href="#" className="text-white hover:text-white">
-                <span className="sr-only">Instagram</span>
-                <InstagramIcon className="[&>path]:fill-white w-[1.3125rem] h-[1.3125rem] hover:[&>path]:fill-[#FFC3C3] [&>path]:transition-all [&>path]:duration-200" />
-              </a>
-              <a href="#" className="text-white hover:text-white">
-                <span className="sr-only">Facebook</span>
-                <FacebookIcon className="[&>path]:fill-white w-[1.3125rem] h-[1.3125rem] hover:[&>path]:fill-[#FFC3C3] [&>path]:transition-all [&>path]:duration-200" />
-              </a>
+            <div className="mt-4">
+              <SocialLinks
+                iconColor="white"
+                iconSize="w-[1.3125rem] h-[1.3125rem]"
+                className="flex gap-1 w-fit"
+              />
             </div>
           </div>
 
           {/* Navigation */}
-          <div className="text-right text-white">
+          <div className="text-left md:text-right text-white">
             <ul className="space-y-2">
               <li>
-                <a href="#" className="!text-white hover:!text-[#FFC3C3]">
+                <a href="/" className="!text-white hover:!text-[#FFC3C3]">
                   HOME
                 </a>
               </li>
               <li>
-                <a href="#" className="!text-white hover:!text-[#FFC3C3]">
+                <a href="/about" className="!text-white hover:!text-[#FFC3C3]">
                   ABOUT
                 </a>
               </li>
               <li>
-                <a href="#" className="!text-white hover:!text-[#FFC3C3]">
+                <a
+                  onClick={() => handleScrollToSection('casadora-services')}
+                  className="!text-white hover:!text-[#FFC3C3]"
+                >
                   SERVICES
                 </a>
               </li>
               <li>
-                <a href="#" className="!text-white hover:!text-[#FFC3C3]">
+                <a
+                  onClick={() => handleScrollToSection('casadora-projects')}
+                  className="!text-white hover:!text-[#FFC3C3]"
+                >
                   PROJECTS
                 </a>
               </li>
               <li>
-                <a href="#" className="!text-white hover:!text-[#FFC3C3]">
+                <a
+                  onClick={() => handleScrollToSection('casadora-exhibitions')}
+                  className="!text-white hover:!text-[#FFC3C3]"
+                >
                   EXHIBITIONS
                 </a>
               </li>
               <li>
-                <a href="#" className="!text-white hover:!text-[#FFC3C3]">
+                <a
+                  onClick={() => handleScrollToSection('casadora-contact')}
+                  className="!text-white hover:!text-[#FFC3C3]"
+                >
                   CONTACT
                 </a>
               </li>
@@ -102,7 +126,7 @@ const Footer: React.FC<FooterProps> = ({ className = '' }) => {
         </div>
       </div>
 
-      <div className="pt-4 flex flex-col md:flex-row justify-between items-center text-white text-sm">
+      <div className="pt-4 flex flex-col md:flex-row justify-between items-start md:items-center text-white text-sm">
         <p>&copy; {currentYear} Casadora Group. All rights reserved.</p>
         <a href="#" className="!text-white ">
           Privacy Policy
