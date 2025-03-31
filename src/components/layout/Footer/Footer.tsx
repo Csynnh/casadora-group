@@ -2,6 +2,7 @@ import React from 'react';
 import logo from '../../../assets/images/logo/logo.png';
 import unGlobalCompactLogo from '../../../assets/images/logo/global_footer.png';
 import SocialLinks from '../../common/SocialLinks';
+import { useNavigate } from 'react-router-dom';
 
 interface FooterProps {
   className?: string;
@@ -9,9 +10,29 @@ interface FooterProps {
 
 const Footer: React.FC<FooterProps> = ({ className = '' }) => {
   const currentYear = new Date().getFullYear();
-
+  const navigation = useNavigate();
+  const handleScrollToSection = async (sectionId: string) => {
+    const currentPath = window.location.pathname;
+    const HOMEPAGE = '/';
+    if (currentPath !== HOMEPAGE) {
+      navigation(HOMEPAGE);
+      await new Promise(resolve => setTimeout(resolve, 300));
+    }
+    const sectionElement = document.getElementById(sectionId);
+    if (sectionElement) {
+      const currentScreenWidth = window.innerWidth;
+      const md = currentScreenWidth >= 760;
+      const lg = currentScreenWidth >= 1024;
+      window.scrollTo({
+        top: sectionElement.offsetTop - (lg ? 190 : md ? 130 : 120),
+        behavior: 'smooth',
+      });
+    }
+  };
   return (
-    <footer className={`bg-[#414042] text-white py-9 px-6 sm:px-[min(5rem,8.5vw)] ${className}`}>
+    <footer
+      className={`bg-[#414042] text-white py-9 px-6 sm:px-[min(5rem,8.5vw)] ${className}`}
+    >
       <div className="flex flex-col md:flex-row items-start mb-6 space-y-4 md:space-y-0 md:space-x-8">
         <div>
           <img
@@ -47,9 +68,9 @@ const Footer: React.FC<FooterProps> = ({ className = '' }) => {
 
             {/* Social media icons */}
             <div className="mt-4">
-              <SocialLinks 
-                iconColor="white" 
-                iconSize="w-[1.3125rem] h-[1.3125rem]" 
+              <SocialLinks
+                iconColor="white"
+                iconSize="w-[1.3125rem] h-[1.3125rem]"
                 className="flex gap-1 w-fit"
               />
             </div>
@@ -59,32 +80,44 @@ const Footer: React.FC<FooterProps> = ({ className = '' }) => {
           <div className="text-left md:text-right text-white">
             <ul className="space-y-2">
               <li>
-                <a href="#" className="!text-white hover:!text-[#FFC3C3]">
+                <a href="/" className="!text-white hover:!text-[#FFC3C3]">
                   HOME
                 </a>
               </li>
               <li>
-                <a href="#" className="!text-white hover:!text-[#FFC3C3]">
+                <a href="/about" className="!text-white hover:!text-[#FFC3C3]">
                   ABOUT
                 </a>
               </li>
               <li>
-                <a href="#" className="!text-white hover:!text-[#FFC3C3]">
+                <a
+                  onClick={() => handleScrollToSection('casadora-services')}
+                  className="!text-white hover:!text-[#FFC3C3]"
+                >
                   SERVICES
                 </a>
               </li>
               <li>
-                <a href="#" className="!text-white hover:!text-[#FFC3C3]">
+                <a
+                  onClick={() => handleScrollToSection('casadora-projects')}
+                  className="!text-white hover:!text-[#FFC3C3]"
+                >
                   PROJECTS
                 </a>
               </li>
               <li>
-                <a href="#" className="!text-white hover:!text-[#FFC3C3]">
+                <a
+                  onClick={() => handleScrollToSection('casadora-exhibitions')}
+                  className="!text-white hover:!text-[#FFC3C3]"
+                >
                   EXHIBITIONS
                 </a>
               </li>
               <li>
-                <a href="#" className="!text-white hover:!text-[#FFC3C3]">
+                <a
+                  onClick={() => handleScrollToSection('casadora-contact')}
+                  className="!text-white hover:!text-[#FFC3C3]"
+                >
                   CONTACT
                 </a>
               </li>

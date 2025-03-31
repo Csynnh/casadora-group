@@ -30,7 +30,7 @@ const OurServices = () => {
     },
   ];
   return (
-    <Section title={'OUR SERVICES'}>
+    <Section title={'OUR SERVICES'} id="casadora-services">
       <div className="flex items-center flex-wrap justify-center gap-[2rem] xl:gap-[min(4.375rem,3.75vw)] mb-10 px-[6.579dvw]">
         {serviceItems.map((item, index) => (
           <Card key={index} {...item}></Card>

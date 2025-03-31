@@ -52,7 +52,7 @@ const Exhibition = () => {
   ];
 
   return (
-    <Section title={'OUR EXHIBITION'}>
+    <Section title={'OUR EXHIBITION'} id="casadora-exhibitions">
       <div className="flex items-center flex-wrap justify-center gap-[2rem] xl:gap-[min(4.375rem,3.75vw)] mb-14 px-[6.579dvw]">
         {exhibitionItems.map((item, index) => (
           <Card key={index} {...item}></Card>

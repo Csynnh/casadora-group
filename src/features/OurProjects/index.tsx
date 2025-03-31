@@ -22,7 +22,7 @@ const OurProjects = () => {
     },
   ];
   return (
-    <Section title={'OUR PROJECTS'}>
+    <Section title={'OUR PROJECTS'} id="casadora-projects">
       <div className="flex items-center flex-wrap justify-center gap-6 mb-10">
         {projectItems.map((item, index) => (
           <Card key={index} {...item}></Card>
