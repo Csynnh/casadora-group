@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import hero_image_1 from '../../../assets/images/hero/hero_image_1.png';
-import CTAButton from '../../common/Button/CTAButton';
+import hero_image_1 from '../../assets/images/hero/hero_image_1.png';
+import CTAButton from '../../components/common/Button/CTAButton';
 
 interface HeroProps {}
 
@@ -12,6 +12,8 @@ const Hero: React.FC<HeroProps> = () => {
   useEffect(() => {
     setIsLoaded(true);
   }, []);
+
+
 
   // Handle scroll event, if scrolled past the hero image, hide the mouse
   useEffect(() => {
@@ -86,7 +88,7 @@ const Hero: React.FC<HeroProps> = () => {
             </p>
 
             {/* CTA Buttons */}
-            <CTAButton href="#">ABOUT US</CTAButton>
+            <CTAButton href="/about">ABOUT US</CTAButton>
           </div>
         </div>
       </section>
